@@ -1,11 +1,9 @@
 package com.github.noamm9.features.impl.dungeon
 
-import com.github.noamm9.utils.PlayerUtils
 import com.github.noamm9.event.impl.TickEvent
 import com.github.noamm9.features.Feature
 import com.github.noamm9.ui.clickgui.components.impl.ToggleSetting
-import com.github.noamm9.utils.MathUtils.add
-import com.github.noamm9.utils.canInteract
+import com.github.noamm9.utils.PlayerUtils
 import net.minecraft.core.BlockPos
 import net.minecraft.world.phys.BlockHitResult
 
@@ -45,17 +43,13 @@ object LeverTriggerbot : Feature("Automatically clicks dungeon levers.") {
             val hit = mc.hitResult as? BlockHitResult ?: return@register
             val pos = hit.blockPos
 
-            val level = mc.level ?: return@register
-            val shape = level.getBlockState(pos).getShape(level, pos)
-
-            if (shape.isEmpty) return@register
-
             if (player.distanceToSqr(
-                pos.x + 0.5,
-                pos.y + 0.5,
-                pos.z + 0.5
+                    pos.x + 0.5,
+                    pos.y + 0.5,
+                    pos.z + 0.5
                 ) > 4.5 * 4.5
-            ) return
+            ) return@register
+
             if (pos in clicked) return@register
 
             if (forGate.value && pos in gateLevers) {
