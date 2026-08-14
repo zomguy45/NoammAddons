@@ -38,7 +38,8 @@ object LeverTriggerbot : Feature("Automatically clicks dungeon levers.") {
         register<TickEvent.Start> {
             if (mc.screen != null || player == null) return@register
 
-            clicked.entries.removeIf { --it.value <= 0 }
+            clicked.replaceAll { _, value -> value - 1 }
+            clicked.entries.removeIf { it.value <= 0 }
 
             val hit = mc.hitResult as? BlockHitResult ?: return@register
             val pos = hit.blockPos
