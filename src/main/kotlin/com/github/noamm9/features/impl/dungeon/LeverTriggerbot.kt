@@ -50,7 +50,12 @@ object LeverTriggerbot : Feature("Automatically clicks dungeon levers.") {
 
             if (shape.isEmpty) return@register
 
-            if (!shape.bounds().add(pos).canInteract(4.5)) return@register
+            if (player.distanceToSqr(
+                pos.x + 0.5,
+                pos.y + 0.5,
+                pos.z + 0.5
+                ) > 4.5 * 4.5
+            ) return
             if (pos in clicked) return@register
 
             if (forGate.value && pos in gateLevers) {
