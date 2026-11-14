@@ -143,7 +143,7 @@ object BloodCamp: Feature("Features for Blood Room."), IFeatureWindow {
             if (LocationUtils.inBoss) return@register
             if (mc.gui.screen() != null) return@register
             if (bloodMobs.isEmpty()) return@register
-            val clickTicks = if (pingCompensation.value) ServerUtils.averagePing / 50.0 else 1.0
+            val clickTicks = if (pingCompensation.value) ServerUtils.averagePing / 50.0 else 0.0
             val eye = player.eyePosition
 
             val data = bloodMobs.values.find {
